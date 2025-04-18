@@ -1,0 +1,43 @@
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Create New Course</h2>
+    <form action="/courses/admin/create" method="POST" enctype="multipart/form-data" class="w-75 mx-auto">
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Summary</label>
+        <textarea name="summary" class="form-control" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" name="price" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input type="number" name="capacity" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Trainer</label>
+        <select name="trainer" class="form-select" required>
+          <% trainers.forEach(trainer => { %>
+            <option value="<%= trainer._id %>"><%= trainer.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Schedule</label>
+        <input type="text" name="schedule" class="form-control" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Image Upload</label>
+        <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.png" required />
+      </div>
+      <button type="submit" class="btn btn-success w-100">Create Course</button>
+    </form>
+  </div>
+  

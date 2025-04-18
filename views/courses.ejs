@@ -1,0 +1,65 @@
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1>Courses</h1>
+          <p class="mb-0">
+            Explore our diverse range of expert-led training courses designed to help you gain valuable skills, enhance your career, and stay ahead in your industry.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="courses" class="courses section">
+  <div class="container">
+    <div class="row">
+      <% courses.forEach((course, index) => {
+           const isFull = course.registrants.length >= course.capacity;
+           const isRegistered = currentUser && course.registrants.some(r => r._id.toString() === currentUser._id.toString());
+      %>
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="<%= 100 + (index % 3) * 100 %>">
+          <div class="course-item">
+            <img src="assets/img/<%= course.image %>" class="img-fluid" alt="<%= course.title %>" />
+            <div class="course-content">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="category"><%= course.trainer ? course.trainer.expertise : "No Trainer" %></p>
+                <p class="price">$<%= course.price %></p>
+              </div>
+              <h3><a href="/courses/<%= course.slug %>"><%= course.title %></a></h3>
+              <p class="description"><%= course.description %></p>
+              <div class="trainer d-flex justify-content-between align-items-center">
+                <div class="trainer-profile d-flex align-items-center">
+                  <img src="assets/img/team/<%= course.trainer ? course.trainer.image : 'default.jpg' %>" class="img-fluid" alt="" />
+                  <a href="#" class="trainer-link"><%= course.trainer ? course.trainer.name : "Unknown Trainer" %></a>
+                </div>
+                <div class="trainer-rank d-flex align-items-center">
+                  <i class="bi bi-person user-icon"></i>&nbsp;<%= course.registrants.length %>
+                </div>
+              </div>
+
+              <% if (isFull && !isRegistered) { %>
+                <button class="btn btn-secondary w-100 mt-3" disabled>Course Full</button>
+              <% } else if (!isAuthenticated) { %>
+                <a href="/auth/login" class="btn btn-primary w-100 mt-3">Register</a>
+              <% } else if (isRegistered) { %>
+                <form action="/courses/<%= course._id %>/unregister" method="POST">
+                  <button type="submit" class="btn btn-danger w-100 mt-3">Unregister</button>
+                </form>
+              <% } else { %>
+                <a href="/courses/<%= course._id %>/register" class="btn btn-success w-100 mt-3">Register</a>
+              <% } %>
+
+              <% if (isAuthenticated && currentUser.roles.includes('admin')) { %>
+                <a href="/courses/admin/<%= course._id %>/edit" class="btn btn-warning w-100 mt-2">Edit</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1><%= course.title %></h1>
+          <p class="mb-0"><%= course.summary %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="courses-course-details" class="courses-course-details section">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-lg-8">
+        <img src="/assets/img/<%= course.image %>" class="img-fluid" alt="<%= course.title %>" />
+        <h3><%= course.title %></h3>
+        <p><%= course.description %></p>
+      </div>
+      <div class="col-lg-4">
+        <div class="course-info d-flex justify-content-between align-items-center">
+          <h5>Trainer</h5>
+          <p><%= course.trainer ? course.trainer.name : "Unknown Trainer" %></p>
+        </div>
+        <div class="course-info d-flex justify-content-between align-items-center">
+          <h5>Course Fee</h5>
+          <p>$<%= course.price %></p>
+        </div>
+        <div class="course-info d-flex justify-content-between align-items-center">
+          <h5>Available Seats</h5>
+          <p><%= course.capacity - course.registrants.length %></p>
+        </div>
+        <div class="course-info d-flex justify-content-between align-items-center">
+          <h5>Schedule</h5>
+          <p><%= course.schedule || "TBD" %></p>
+        </div>
+
+        <% const isFull = course.registrants.length >= course.capacity;
+           const isRegistered = currentUser && course.registrants.some(r => r._id.toString() === currentUser._id.toString());
+        %>
+
+        <% if (isFull && !isRegistered) { %>
+          <button class="btn btn-secondary w-100 mt-3" disabled>Course Full</button>
+        <% } else if (!isAuthenticated) { %>
+          <a href="/auth/login" class="btn btn-primary w-100 mt-3">Register</a>
+        <% } else if (isRegistered) { %>
+          <form action="/courses/<%= course._id %>/unregister" method="POST">
+            <button type="submit" class="btn btn-danger w-100 mt-3">Unregister</button>
+          </form>
+        <% } else { %>
+          <a href="/courses/<%= course._id %>/register" class="btn btn-success w-100 mt-3">Register</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>

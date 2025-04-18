@@ -1,0 +1,28 @@
+<div class="container my-5">
+    <h1 class="text-center">National Lacrosse League Teams</h1>
+    <div class="row mt-4">
+      <% if (teams && teams.length) { %>
+        <% teams.forEach(team => { %>
+          <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <% function getImageFileName(name) {
+                    return name.toLowerCase().replace(/\s+/g, '_') + '.jpg';
+               } %>
+              <img src="/assets/img/<%= getImageFileName(team.strTeam) %>" 
+              alt="<%= team.strTeam %> Logo"  
+              style="height: 200px; object-fit: cover;" 
+              onerror="this.onerror=null; this.src='/assets/img/placeholder.jpg';" />                
+              <div class="card-body">
+                <h5 class="card-title"><%= team.strTeam %></h5>
+                <p class="card-text"><%= team.strStadium %> - <%= team.strCountry %></p>
+                <a href="<%= team.strWebsite %>" target="_blank" class="btn btn-primary">Team Website</a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>No teams found.</p>
+      <% } %>
+    </div>
+  </div>
+  

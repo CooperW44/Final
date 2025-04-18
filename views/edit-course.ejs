@@ -1,0 +1,49 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Course</h2>
+    <form action="/courses/admin/<%= course._id %>/edit" method="POST" enctype="multipart/form-data" class="w-75 mx-auto">
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" value="<%= course.title %>" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Summary</label>
+        <input type="text" name="summary" class="form-control" value="<%= course.summary %>" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="5"><%= course.description %></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" name="price" class="form-control" value="<%= course.price %>" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input type="number" name="capacity" class="form-control" value="<%= course.capacity %>" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Schedule</label>
+        <input type="text" name="schedule" class="form-control" value="<%= course.schedule %>" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Trainer</label>
+        <select name="trainer" class="form-select">
+          <% trainers.forEach(trainer => { %>
+            <option value="<%= trainer._id %>" <%= course.trainer.toString() === trainer._id.toString() ? 'selected' : '' %>>
+              <%= trainer.name %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Image (optional)</label>
+        <input type="file" name="image" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Update Course</button>
+    </form>
+  
+    <form action="/courses/admin/<%= course._id %>/delete" method="POST" class="mt-3 text-center">
+      <button type="submit" class="btn btn-danger">Delete Course</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,16 @@
+<div class="container mt-5">
+    <h2>Unresponded Contacts</h2>
+    <% if (contacts.length === 0) { %>
+      <p>No pending contact requests.</p>
+    <% } else { %>
+      <ul class="list-group">
+        <% contacts.forEach(contact => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong><%= contact.name %></strong> - <%= contact.subject %>
+            <a href="/contacts/admin/respond/<%= contact._id %>" class="btn btn-sm btn-primary">Respond</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+  

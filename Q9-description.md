@@ -1,0 +1,3 @@
+<!--- Write a description of the functionality you implemented for question 9 here.  No special formatting is required; however, if desired you can use the basic markdown syntax (https://www.markdownguide.org/cheat-sheet/) and view the result by right-clicking the file and selecting 'Open Preview'. -->
+
+I added email functionality using the nodemailer package. When an admin responds to a contact form submission, the system sends an automatic email to the user with the admin's message. This was implemented in the postRespond function of contact-controller.js and utilizes a reusable utility function from util/mailer.js. It enhances the application by ensuring users receive timely notifications.

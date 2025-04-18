@@ -1,0 +1,15 @@
+<div class="container mt-5">
+    <h2>Respond to <%= contact.name %></h2>
+    <p><strong>Email:</strong> <%= contact.email %></p>
+    <p><strong>Subject:</strong> <%= contact.subject %></p>
+    <p><strong>Message:</strong> <%= contact.message %></p>
+  
+    <form method="POST" action="/contacts/admin/respond/<%= contact._id %>">
+      <div class="mb-3">
+        <label class="form-label">Response</label>
+        <textarea name="response" class="form-control" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit Response</button>
+    </form>
+  </div>
+  
